@@ -25,6 +25,5 @@
 Установка:
 
 ```bash
-git clone https://github.com/EgorShestopalov
-/mycards.git
+git clone https://github.com/EgorShestopalov/mycards.git
 cd mycards
