@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Квиз{% endblock %}
+
+{% block content %}
+<div style="text-align: center;">
+    <h1>🎯 Проверь себя</h1>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="error">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    
+    {% if word %}
+        <div class="word">{{ word.word }}</div>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ word.id }}">
+            <input type="text" name="answer" placeholder="Введите перевод..." required style="width: 300px; text-align: center;">
+            <br><br>
+            <button type="submit" class="btn">Проверить</button>
+        </form>
+    {% else %}
+        <p>Нет слов! <a href="/add/">Добавьте сначала</a></p>
+    {% endif %}
+
+    {% if result %}
+        <div style="margin-top: 30px; padding: 20px; background: {% if 'Правильно' in result %}#d4edda{% else %}#f8d7da{% endif %}; border-radius: 10px;">
+            <h2>{{ result }}</h2>
+        </div>
+        <br>
+        <a href="/quiz/" class="btn">➡️ Следующее слово</a>
+    {% endif %}
+</div>
+{% endblock %}

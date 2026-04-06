@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои слова{% endblock %}
+
+{% block content %}
+<h1>📖 Мои слова</h1>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="error">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="word" placeholder="Слово на английском" required>
+    <input type="text" name="translation" placeholder="Перевод" required>
+    <button type="submit" class="btn">➕ Добавить</button>
+</form>
+
+<hr>
+
+<div class="card-grid">
+    {% for word in words %}
+    <div class="card">
+        <h3>{{ word.word }}</h3>
+        <p>{{ word.translation }}</p>
+        <a href="/delete/{{ word.id }}/" class="btn" style="background: #dc3545; margin-top: 10px;">🗑 Удалить</a>
+    </div>
+    {% empty %}
+    <p>Пока нет слов. Добавьте первое слово!</p>
+    {% endfor %}
+</div>
+
+<p style="margin-top: 20px;">📊 Всего слов: {{ words|length }}</p>
+{% endblock %}
